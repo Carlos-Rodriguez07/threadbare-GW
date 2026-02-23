@@ -1,0 +1,137 @@
+name: Importación de Issues
+on:
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Instalar dependencias
+        run: pip install requests
+
+      - name: Importar todo desde JSON
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python - << 'EOF'
+          import requests, json, os, time
+
+          token = os.environ["GITHUB_TOKEN"]
+          repo = os.environ["GITHUB_REPOSITORY"]
+          headers = {
+              "Authorization": f"token {token}",
+              "Accept": "application/vnd.github.v3+json"
+          }
+
+          # 1. Cargar archivo con UTF-8 para soportar los emojis
+          with open("issues.json", "r", encoding="utf-8") as f:
+              issues = json.load(f)
+
+          print(f"Total de issues detectadas en JSON: {len(issues)}")
+
+          # --- FASE 1: Sincronizar Etiquetas ---
+          print("\n--- Sincronizando Etiquetas ---")
+          existing_labels_r = requests.get(f"https://api.github.com/repos/{repo}/labels", headers=headers)
+          existing_labels = [l['name'] for l in existing_labels_r.json()] if existing_labels_r.status_code == 200 else []
+
+          for issue in issues:
+              for label_obj in issue.get("labels", []):
+                  if isinstance(label_obj, dict):
+                      name = label_obj.get("name")
+                      if name and name not in existing_labels:
+                          label_data = {
+                              "name": name,
+                              "color": label_obj.get("color", "cccccc"),
+                              "description": label_obj.get("description", "")
+                          }
+                          requests.post(f"https://api.github.com/repos/{repo}/labels", headers=headers, json=label_data)
+                          existing_labels.append(name)
+                          print(f"Etiqueta creada: {name}")
+
+          # --- FASE 2: Sincronizar Milestones ---
+          print("\n--- Sincronizando Milestones ---")
+          # Extraer milestones únicos del JSON
+          unique_milestones = {}
+          for issue in issues:
+              ms = issue.get("milestone")
+              if ms and ms.get("number") not in unique_milestones:
+                  unique_milestones[ms.get("number")] = ms
+
+          # Obtener milestones existentes en el repo destino para no duplicarlos
+          existing_ms_r = requests.get(f"https://api.github.com/repos/{repo}/milestones?state=all", headers=headers)
+          existing_milestones = {m['title']: m['number'] for m in existing_ms_r.json()} if existing_ms_r.status_code == 200 else {}
+
+          milestone_map = {} # Mapa para relacionar: ID_viejo -> ID_nuevo
+
+          for old_num, ms_data in unique_milestones.items():
+              title = ms_data.get("title")
+              
+              if title in existing_milestones:
+                  # Si ya existe, solo lo mapeamos
+                  milestone_map[old_num] = existing_milestones[title]
+                  print(f"Milestone '{title}' ya existe con el número: {existing_milestones[title]}")
+              else:
+                  # Si no existe, lo creamos
+                  ms_payload = {
+                      "title": title,
+                      "state": ms_data.get("state", "open"),
+                      "description": ms_data.get("description", "")
+                  }
+                  r = requests.post(f"https://api.github.com/repos/{repo}/milestones", headers=headers, json=ms_payload)
+                  if r.status_code == 201:
+                      new_num = r.json().get("number")
+                      milestone_map[old_num] = new_num
+                      print(f"✅ Milestone '{title}' creado con el número: {new_num}")
+                  else:
+                      print(f"❌ Error creando milestone '{title}': {r.text}")
+                  time.sleep(1) # Pausa ligera para no saturar la API
+
+          # --- FASE 3: Crear las Issues ---
+          print("\n--- Creando Issues ---")
+          count = 0
+          total_issues = len(issues)
+          
+          # Invertimos la lista para que la Issue #1 del JSON sea la primera en GitHub
+          for issue in reversed(issues):
+              title = issue.get("title")
+              if not title: continue
+
+              body = issue.get("body") or "Sin descripción."
+              label_names = [l.get("name") if isinstance(l, dict) else l for l in issue.get("labels", [])]
+              
+              # Preparamos el payload base
+              data = {"title": title, "body": body, "labels": label_names}
+
+              # Si la issue tenía milestone, buscamos el nuevo número en el mapa
+              old_ms = issue.get("milestone")
+              if old_ms:
+                  old_ms_num = old_ms.get("number")
+                  new_ms_num = milestone_map.get(old_ms_num)
+                  if new_ms_num:
+                      data["milestone"] = new_ms_num # Agregamos el milestone al payload
+
+              r = requests.post(f"https://api.github.com/repos/{repo}/issues", headers=headers, json=data)
+              
+              if r.status_code == 201:
+                  count += 1
+                  print(f"✅ [{count}/{total_issues}] Creada: {title}")
+              else:
+                  print(f"❌ Error en '{title}': {r.text}")
+              
+              # Pausa necesaria para no ser bloqueado por protección contra Spam de GitHub
+              time.sleep(2) 
+
+          print(f"\n--- Proceso finalizado. Total creadas: {count} ---")
+          EOF
