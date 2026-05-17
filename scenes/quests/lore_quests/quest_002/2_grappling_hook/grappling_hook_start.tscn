@@ -1,13 +1,15 @@
 [gd_scene format=4 uid="uid://b8mfigsd8y5qs"]
 
+[ext_resource type="Script" uid="uid://cypo7qnrrj4qq" path="res://scenes/quests/lore_quests/quest_002/2_grappling_hook/components/grappling_hook_start.gd" id="1_6n4qp"]
 [ext_resource type="PackedScene" uid="uid://2rbpl811wlv1" path="res://scenes/game_elements/props/background_music/background_music.tscn" id="1_wxpj0"]
 [ext_resource type="Material" uid="uid://64aeyjitacv3" path="res://scenes/game_elements/props/void/void_chromakey_material.tres" id="2_85rkf"]
-[ext_resource type="AudioStream" uid="uid://bbamdm6wtjjcn" path="res://assets/first_party/music/Threadbare_Bed.ogg" id="2_p44d7"]
+[ext_resource type="AudioStream" uid="uid://bwgtbylflkup2" path="res://scenes/quests/lore_quests/quest_002/components/void_music.tres" id="2_wv4km"]
 [ext_resource type="PackedScene" uid="uid://iu2q66clupc6" path="res://scenes/game_elements/characters/player/player.tscn" id="3_gbtro"]
 [ext_resource type="Script" uid="uid://x1mxt6bmei2o" path="res://scenes/ui_elements/cinematic/cinematic.gd" id="3_p44d7"]
 [ext_resource type="Script" uid="uid://d1ly6uhh500xu" path="res://scenes/quests/lore_quests/quest_002/1_void_runner/components/tile_map_cover.gd" id="3_upilw"]
 [ext_resource type="SpriteFrames" uid="uid://dtoylirwywk0j" path="res://scenes/game_elements/characters/components/sprite_frames/storyweaver_blue.tres" id="4_10ahs"]
 [ext_resource type="Resource" uid="uid://1jkpxbyl7bqk" path="res://scenes/quests/lore_quests/quest_002/2_grappling_hook/intro_start.dialogue" id="4_aiq76"]
+[ext_resource type="Script" uid="uid://c2lx7gvkonxaa" path="res://scenes/game_elements/props/background_music/components/clip_switcher.gd" id="4_wv4km"]
 [ext_resource type="PackedScene" uid="uid://evb46lm6ssu2" path="res://scenes/game_elements/props/hookable_pin/hookable_pin.tscn" id="5_cspw2"]
 [ext_resource type="TileSet" uid="uid://ciq5guijvlyb0" path="res://tiles/void_chromakey.tres" id="5_w67qe"]
 [ext_resource type="PackedScene" uid="uid://dvj15pnuqr2ua" path="res://scenes/game_elements/props/hookable_button_item/hookable_button_item.tscn" id="6_3g3x4"]
@@ -17,14 +19,12 @@
 [ext_resource type="PackedScene" uid="uid://cokul8w425pja" path="res://scenes/quests/lore_quests/quest_002/1_void_runner/components/void_spreading_enemy.tscn" id="9_3g3x4"]
 [ext_resource type="PackedScene" uid="uid://covsdqqsd6rsy" path="res://scenes/game_elements/props/sign/sign.tscn" id="9_vdhd3"]
 [ext_resource type="Script" uid="uid://csev4hv57utxv" path="res://scenes/game_logic/walk_behaviors/character_speeds.gd" id="10_upilw"]
-[ext_resource type="PackedScene" uid="uid://4u7dloafx55f" path="res://scenes/game_elements/props/teleporter/teleporter/teleporter.tscn" id="10_wxpj0"]
-[ext_resource type="PackedScene" uid="uid://cdwf2nmeqns31" path="res://scenes/ui_elements/input_hints/throw_hint.tscn" id="11_10ahs"]
 [ext_resource type="PackedScene" uid="uid://cfcgrfvtn04yp" path="res://scenes/ui_elements/hud/hud.tscn" id="11_p44d7"]
-[ext_resource type="Theme" uid="uid://cvitou84ni7qe" path="res://scenes/ui_elements/components/theme.tres" id="13_3g3x4"]
 [ext_resource type="Script" uid="uid://0enyu5v4ra34" path="res://scenes/game_elements/props/spawn_point/components/spawn_point.gd" id="14_jqq45"]
+[ext_resource type="PackedScene" uid="uid://1vunygl4wpj6" path="res://scenes/game_elements/props/button_item/button_item.tscn" id="15_wv4km"]
 [ext_resource type="PackedScene" uid="uid://crqjcicx0vdu" path="res://scenes/game_elements/props/decoration/bush/bush.tscn" id="18_wv4km"]
 [ext_resource type="SpriteFrames" uid="uid://bapks76u4hipj" path="res://scenes/game_elements/props/decoration/bush/components/bush_spriteframes_green_small.tres" id="19_6n4qp"]
-[ext_resource type="PackedScene" uid="uid://cqkly1vjd6xhy" path="res://scenes/ui_elements/input_hints/aim_input_hint.tscn" id="23_wv4km"]
+[ext_resource type="Script" uid="uid://hqdquinbimce" path="res://scenes/game_elements/props/teleporter/teleporter.gd" id="20_wv4km"]
 
 [sub_resource type="Animation" id="Animation_w67qe"]
 length = 0.001
@@ -39,30 +39,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [4]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ScreenOverlay/InputHint:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ScreenOverlay/InputHint:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_aiq76"]
@@ -81,38 +57,10 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_ngr1v"]
-resource_name = "show_input_hints"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ScreenOverlay/InputHint:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ScreenOverlay/InputHint:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ngr1v"]
 _data = {
 &"RESET": SubResource("Animation_w67qe"),
-&"eat_floor": SubResource("Animation_aiq76"),
-&"show_input_hints": SubResource("Animation_ngr1v")
+&"eat_floor": SubResource("Animation_aiq76")
 }
 
 [sub_resource type="Resource" id="Resource_kr8u1"]
@@ -128,22 +76,30 @@ metadata/_custom_type_script = "uid://csev4hv57utxv"
 
 [sub_resource type="Curve2D" id="Curve2D_vdhd3"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -1512, 3, 0, 0, 0, 0, -264, 3, 0, 0, 0, 0, -264, -221, 0, 0, 0, 0, 120, -221, 0, 0, 0, 0, 120, 163, 0, 0, 0, 0, 248, 163, 0, 0, 0, 0, 248, -285, 0, 0, 0, 0, 888, -285)
+"points": PackedVector2Array(0, 0, 0, 0, 888, -973, 0, 0, 0, 0, 888, -285, 0, 0, 0, 0, 248, -285, 0, 0, 0, 0, 248, 163, 0, 0, 0, 0, 120, 163, 0, 0, 0, 0, 120, -221, 0, 0, 0, 0, -264, -221, 0, 0, 0, 0, -264, 3, 0, 0, 0, 0, -1512, 3)
 }
-point_count = 8
+point_count = 9
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_drlay"]
 size = Vector2(64, 128)
 
 [node name="GrapplingHookStart" type="Node2D" unique_id=462883478]
+script = ExtResource("1_6n4qp")
 
 [node name="BackgroundMusic" parent="." unique_id=936481265 instance=ExtResource("1_wxpj0")]
-stream = ExtResource("2_p44d7")
+stream = ExtResource("2_wv4km")
+clip = &"Creep Intro"
+
+[node name="ClipSwitcher" type="Node" parent="BackgroundMusic" unique_id=485319442]
+script = ExtResource("4_wv4km")
+clip = &"Creep Outro"
+metadata/_custom_type_script = "uid://c2lx7gvkonxaa"
 
 [node name="Cinematic" type="Node2D" parent="." unique_id=419582141 node_paths=PackedStringArray("animation_player")]
 script = ExtResource("3_p44d7")
 dialogue = ExtResource("4_aiq76")
 animation_player = NodePath("../AnimationPlayer")
+autostart = false
 metadata/_custom_type_script = "uid://x1mxt6bmei2o"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1296302605]
@@ -178,7 +134,6 @@ unique_name_in_owner = true
 position = Vector2(928, 545)
 scale = Vector2(1.03448, 1)
 player_name = "Storyweaver"
-mode = 2
 sprite_frames = ExtResource("4_10ahs")
 
 [node name="Camera2D" type="Camera2D" parent="OnTheGround/Player" unique_id=1055479648]
@@ -190,6 +145,7 @@ position_smoothing_enabled = true
 editor_draw_limits = true
 
 [node name="Pins" type="Node2D" parent="OnTheGround" unique_id=2066460652]
+y_sort_enabled = true
 
 [node name="HookablePin" parent="OnTheGround/Pins" unique_id=1712001088 instance=ExtResource("5_cspw2")]
 position = Vector2(975, 854)
@@ -257,9 +213,22 @@ position = Vector2(-376, 201)
 [node name="HookableButtonItem12" parent="OnTheGround/HookableButtons" unique_id=1554954874 instance=ExtResource("6_3g3x4")]
 position = Vector2(-417, 227)
 
+[node name="NonHookableButtons" type="Node2D" parent="OnTheGround" unique_id=872709428]
+unique_name_in_owner = true
+y_sort_enabled = true
+
+[node name="ButtonItem" parent="OnTheGround/NonHookableButtons" unique_id=944394142 instance=ExtResource("15_wv4km")]
+position = Vector2(966, 783)
+
+[node name="ButtonItem2" parent="OnTheGround/NonHookableButtons" unique_id=72748837 instance=ExtResource("15_wv4km")]
+position = Vector2(1179, 1124)
+
+[node name="ButtonItem3" parent="OnTheGround/NonHookableButtons" unique_id=1623745746 instance=ExtResource("15_wv4km")]
+position = Vector2(1132, 1079)
+
 [node name="CollectibleItem" parent="OnTheGround" unique_id=317578047 instance=ExtResource("7_upilw")]
 position = Vector2(1434, 520)
-next_scene = "uid://cufkthb25mpxy"
+next_scene = "uid://ce7nk8qmi64d2"
 item = SubResource("Resource_kr8u1")
 
 [node name="Sign" parent="OnTheGround" unique_id=516698120 instance=ExtResource("9_vdhd3")]
@@ -269,6 +238,7 @@ direction = 1
 text = "Go!"
 
 [node name="VoidPatrolling" parent="OnTheGround" unique_id=1938075518 node_paths=PackedStringArray("void_layer", "idle_patrol_path") instance=ExtResource("9_3g3x4")]
+unique_name_in_owner = true
 process_mode = 4
 position = Vector2(1100, 677)
 void_layer = NodePath("../../TileMapLayers/Void")
@@ -337,8 +307,10 @@ sprite_frames = ExtResource("19_6n4qp")
 [node name="Bush14" parent="OnTheGround/Bushes" unique_id=391246514 instance=ExtResource("18_wv4km")]
 position = Vector2(261, 440)
 
-[node name="Teleporter" parent="." unique_id=579212473 instance=ExtResource("10_wxpj0")]
+[node name="Teleporter" type="Area2D" parent="." unique_id=579212473]
 position = Vector2(2704, 1216)
+collision_layer = 4
+script = ExtResource("20_wv4km")
 next_scene = "uid://dpv6x7h2p2i3l"
 enter_transition = 2
 exit_transition = 1
@@ -353,42 +325,17 @@ script = ExtResource("14_jqq45")
 look_at_side_on_spawn = -1
 metadata/_custom_type_script = "uid://0enyu5v4ra34"
 
+[node name="SpawnPointFromPowerup" type="Marker2D" parent="." unique_id=1553099395 groups=["spawn_point"]]
+position = Vector2(2691, 545)
+script = ExtResource("14_jqq45")
+look_at_side_on_spawn = -1
+metadata/_custom_type_script = "uid://0enyu5v4ra34"
+
 [node name="ScreenOverlay" type="CanvasLayer" parent="." unique_id=355832986]
 
-[node name="InputHint" type="Control" parent="ScreenOverlay" unique_id=1843013517]
-visible = false
-layout_mode = 3
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-grow_vertical = 0
-size_flags_horizontal = 8
-size_flags_vertical = 8
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ScreenOverlay/InputHint" unique_id=1846746589]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -100.0
-offset_right = 166.0
-grow_vertical = 0
-
-[node name="ThrowHint" parent="ScreenOverlay/InputHint/VBoxContainer" unique_id=2128862251 instance=ExtResource("11_10ahs")]
-layout_mode = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="ScreenOverlay/InputHint/VBoxContainer" unique_id=676863832]
-layout_mode = 2
-
-[node name="AimInputHint" parent="ScreenOverlay/InputHint/VBoxContainer/HBoxContainer2" unique_id=1196650566 instance=ExtResource("23_wv4km")]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="ScreenOverlay/InputHint/VBoxContainer/HBoxContainer2" unique_id=1102684800]
-layout_mode = 2
-theme = ExtResource("13_3g3x4")
-theme_type_variation = &"HintLabel"
-text = "Aim"
-
 [node name="HUD" parent="." unique_id=1590862536 instance=ExtResource("11_p44d7")]
+
+[connection signal="player_teleported" from="SpawnPointFromPowerup" to="." method="_on_spawn_point_from_powerup_player_teleported"]
+[connection signal="player_teleported" from="SpawnPointFromPowerup" to="BackgroundMusic/ClipSwitcher" method="switch"]
 
 [editable path="OnTheGround/VoidPatrolling"]

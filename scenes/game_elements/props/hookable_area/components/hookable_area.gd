@@ -26,7 +26,11 @@ extends Area2D
 ## depending on the value of [member weight] and the controlled entity being a
 ## [CharacterBody2D].
 ## [br][br]
-## [b]Note:[/b] This area is expected to be in the "hookable" collision layer.
+## This script automatically configures the correct [member collision_layer] and
+## [member collision_mask] values to enable interaction with the grappling hook.
+
+## Use this signal to release itself from a grappling hook pull.
+signal pull_released(cancelled: bool)
 
 ## The game entity that becomes hookable.
 ## [br][br]
@@ -58,22 +62,26 @@ func _enter_tree() -> void:
 		controlled_entity = get_parent()
 
 
+func _ready() -> void:
+	collision_layer = 0
+	collision_mask = 0
+	set_collision_layer_value(Enums.CollisionLayers.HOOKABLE, true)
+
+
 ## Return the global position used to connect the hook.
 func get_anchor_position() -> Vector2:
 	return anchor_point.global_position if anchor_point else global_position
+
+
+## Emit the [signal pull_released] signal.
+func release_from_pull(cancelled: bool = false) -> void:
+	pull_released.emit(cancelled)
 
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray
 	if not controlled_entity:
 		warnings.append("Controlled Entity must be set.")
-	if not get_collision_layer_value(Enums.CollisionLayers.HOOKABLE):
-		warnings.append(
-			(
-				"Consider enabling collision with the hookable layer: %d."
-				% Enums.CollisionLayers.HOOKABLE
-			)
-		)
 	return warnings
 
 

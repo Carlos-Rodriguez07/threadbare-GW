@@ -2,12 +2,14 @@
 
 [ext_resource type="Script" uid="uid://dj5shb75ckk2a" path="res://scenes/game_elements/props/eternal_loom/components/eternal_loom.gd" id="1_0f752"]
 [ext_resource type="Texture2D" uid="uid://cj62bpasgf643" path="res://scenes/game_elements/props/eternal_loom/components/eternal_loom_blue.png" id="2_dj2yp"]
-[ext_resource type="PackedScene" uid="uid://dutgnbiy7xalb" path="res://scenes/game_elements/props/interact_area/interact_area.tscn" id="3_kyhkd"]
+[ext_resource type="Script" uid="uid://du8wfijr35r35" path="res://scenes/game_elements/props/interact_area/interact_area.gd" id="3_mjlja"]
 [ext_resource type="Texture2D" uid="uid://5wscjc8yqqts" path="res://assets/first_party/collectibles/world_memory.png" id="4_12bvc"]
 [ext_resource type="Script" uid="uid://edcifob4jc4s" path="res://scenes/game_logic/talk_behavior.gd" id="4_eq7jh"]
 [ext_resource type="Texture2D" uid="uid://6bf8rum68wq3" path="res://assets/first_party/collectibles/world_imagination.png" id="5_eq7jh"]
 [ext_resource type="Texture2D" uid="uid://cepg1o3ihp055" path="res://assets/first_party/collectibles/world_spirit.png" id="6_hfqem"]
 [ext_resource type="AudioStream" uid="uid://bg8u4en3hlo6w" path="res://assets/third_party/sounds/eternal_loom/EternalLoomShort.ogg" id="7_12bvc"]
+[ext_resource type="Texture2D" uid="uid://b5ooaiyxdrp6a" path="res://scenes/game_elements/components/light_texture_256x256.tres" id="9_mjlja"]
+[ext_resource type="Script" uid="uid://bk52qjv58locq" path="res://scenes/game_logic/light2d_behaviors/artificial_light_behavior.gd" id="10_k2bt4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dj2yp"]
 atlas = ExtResource("2_dj2yp")
@@ -540,17 +542,23 @@ position = Vector2(-1.5, 32)
 shape = SubResource("RectangleShape2D_uojly")
 debug_color = Color(0, 0.588235, 0.698039, 0.419608)
 
-[node name="InteractArea" parent="." unique_id=1735004807 instance=ExtResource("3_kyhkd")]
+[node name="InteractArea" type="Area2D" parent="." unique_id=1735004807 node_paths=PackedStringArray("marker")]
 unique_name_in_owner = true
-visible = false
 position = Vector2(0, 55)
-interact_label_position = Vector2(0, 45)
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("3_mjlja")
+marker = NodePath("Marker")
 action = "Use Eternal Loom"
+metadata/_custom_type_script = "uid://du8wfijr35r35"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=1537085446]
 position = Vector2(0, 120)
 shape = SubResource("RectangleShape2D_uhynt")
 debug_color = Color(0.600391, 0.54335, 0, 0.42)
+
+[node name="Marker" type="Marker2D" parent="InteractArea" unique_id=556753843]
+position = Vector2(0, -152)
 
 [node name="TalkBehavior" type="Node" parent="." unique_id=562216088 node_paths=PackedStringArray("interact_area")]
 unique_name_in_owner = true
@@ -585,3 +593,17 @@ texture = ExtResource("6_hfqem")
 [node name="LoomOfferingSound" type="AudioStreamPlayer2D" parent="LoomOfferingAnimation" unique_id=1851096463]
 stream = ExtResource("7_12bvc")
 bus = &"SFX"
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=853151346 groups=["night-lights"]]
+visibility_layer = 2
+position = Vector2(0, 39)
+scale = Vector2(2.9765627, 1.765625)
+enabled = false
+color = Color(1, 1, 0, 1)
+energy = 0.5
+texture = ExtResource("9_mjlja")
+
+[node name="ArtificialLightBehavior" type="Node" parent="PointLight2D" unique_id=326293187 node_paths=PackedStringArray("light")]
+script = ExtResource("10_k2bt4")
+light = NodePath("..")
+metadata/_custom_type_script = "uid://bk52qjv58locq"

@@ -15,11 +15,29 @@ const DEFAULT_VOLUMES: Dictionary[String, float] = {
 	"Music": 0.5,
 }
 
+const DISPLAY_SECTION := "Display"
+const SHOW_HUD_KEY := "Show HUD"
+
+const LANGUAGE_SECTION := "Language"
+const LOCALE_KEY := "Locale"
+const DEFAULT_LOCALE := "en"
+
 ## 5:4 ratio of 1280×1024, 1024×768, and other pre-widescreen monitors.
 const MINIMUM_ASPECT_RATIO := 1.25
 
 ## An arbitrary wide ratio, lower than 21:9 ("ultrawide").
 const MAXIMUM_ASPECT_RATIO := 2.2
+
+@export var fullscreen: bool:
+	get = is_fullscreen,
+	set = set_fullscreen
+
+@export var show_input_hud := true:
+	get:
+		return _settings.get_value(DISPLAY_SECTION, SHOW_HUD_KEY, true)
+	set(new_value):
+		_settings.set_value(DISPLAY_SECTION, SHOW_HUD_KEY, new_value)
+		_save()
 
 var _settings := ConfigFile.new()
 
@@ -38,6 +56,7 @@ func _ready() -> void:
 	_settings.set_value(META_SECTION, VERSION_KEY, VERSION)
 
 	_restore_volumes()
+	_restore_locale()
 	_load_project_settings_overrides()
 	_set_minimum_window_size()
 
@@ -94,11 +113,21 @@ func is_fullscreen() -> bool:
 	return DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN
 
 
-func toggle_fullscreen(toggled_on: bool) -> void:
+func set_fullscreen(toggled_on: bool) -> void:
 	if toggled_on:
 		set_window_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
 	else:
 		set_window_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+
+
+func get_locale() -> String:
+	return TranslationServer.get_locale()
+
+
+func set_locale(locale: String) -> void:
+	TranslationServer.set_locale(locale)
+	_settings.set_value(LANGUAGE_SECTION, LOCALE_KEY, locale)
+	_save()
 
 
 func set_window_mode(window_mode: int) -> void:
@@ -111,6 +140,11 @@ func set_window_mode(window_mode: int) -> void:
 		var ret := _overrides.save(_overrides_path)
 		if ret != OK:
 			push_warning("Failed to save to", _overrides_path, ": ", error_string(ret))
+
+
+func _restore_locale() -> void:
+	var locale: String = _settings.get_value(LANGUAGE_SECTION, LOCALE_KEY, DEFAULT_LOCALE)
+	TranslationServer.set_locale(locale)
 
 
 func _set_volume(bus_idx: int, volume_linear: float) -> void:

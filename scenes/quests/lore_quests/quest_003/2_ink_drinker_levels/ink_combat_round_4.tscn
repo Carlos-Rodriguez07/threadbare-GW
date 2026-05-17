@@ -8,20 +8,16 @@
 [ext_resource type="TileSet" uid="uid://b8qnr0owsbhhn" path="res://tiles/exterior_floors.tres" id="6_ah6ns"]
 [ext_resource type="TileSet" uid="uid://bjx3gvah0ycl1" path="res://tiles/foam_2.tres" id="6_ubp0p"]
 [ext_resource type="TileSet" uid="uid://dfp36ffpanjq2" path="res://tiles/elevation.tres" id="7_ubp0p"]
+[ext_resource type="TileSet" uid="uid://bdc7ucso7bx0s" path="res://tiles/shadows.tres" id="8_gteq2"]
 [ext_resource type="PackedScene" uid="uid://lgu7aeqa7o3r" path="res://scenes/game_elements/props/door/door.tscn" id="8_jgk56"]
-[ext_resource type="Script" uid="uid://hqdquinbimce" path="res://scenes/game_elements/props/teleporter/teleporter/components/teleporter.gd" id="9_jqnd2"]
+[ext_resource type="Script" uid="uid://hqdquinbimce" path="res://scenes/game_elements/props/teleporter/teleporter.gd" id="9_jqnd2"]
 [ext_resource type="PackedScene" uid="uid://iu2q66clupc6" path="res://scenes/game_elements/characters/player/player.tscn" id="10_qh3g1"]
 [ext_resource type="SpriteFrames" uid="uid://dtoylirwywk0j" path="res://scenes/game_elements/characters/components/sprite_frames/storyweaver_blue.tres" id="11_bfcsr"]
 [ext_resource type="PackedScene" uid="uid://b82nsrh332syj" path="res://scenes/game_elements/characters/enemies/throwing_enemy/throwing_enemy.tscn" id="12_30iwa"]
 [ext_resource type="SpriteFrames" uid="uid://3ujiuhj7wpm2" path="res://scenes/game_elements/characters/enemies/throwing_enemy/components/ink_drinker_frames_red.tres" id="13_7o6on"]
 [ext_resource type="PackedScene" uid="uid://c5jedlvvnnbi0" path="res://scenes/game_elements/props/projectile/ink_blob_projectile.tscn" id="14_jgk56"]
 [ext_resource type="AudioStream" uid="uid://qf2d38rabx8o" path="res://assets/third_party/sounds/characters/enemies/throwing_enemy/Wings.ogg" id="14_plgxr"]
-[ext_resource type="AudioStream" uid="uid://fcmjf1srys7n" path="res://assets/third_party/sounds/characters/enemies/throwing_enemy/Spit.ogg" id="15_i740e"]
-[ext_resource type="SpriteFrames" uid="uid://bhamin2pby7tq" path="res://scenes/game_elements/props/projectile/components/inkblob_spriteframes.tres" id="16_chkjj"]
-[ext_resource type="AudioStream" uid="uid://7jlv4wqpihl7" path="res://scenes/game_elements/props/projectile/components/blob_hit.wav" id="17_wrdrp"]
-[ext_resource type="PackedScene" uid="uid://clgisducnnh0a" path="res://scenes/game_elements/fx/liquid_small_splat/liquid_small_splat.tscn" id="18_ikvn7"]
-[ext_resource type="PackedScene" uid="uid://b4qu6wml5gd7a" path="res://scenes/game_elements/fx/liquid_big_splat/liquid_big_splat.tscn" id="19_xyxfd"]
-[ext_resource type="PackedScene" uid="uid://bgce3qns72g3m" path="res://scenes/game_elements/fx/liquid_trail.tscn" id="20_48hph"]
+[ext_resource type="AudioStream" uid="uid://bbnj2fog3rdy8" path="res://assets/first_party/sounds/throwing_enemy/Spray.wav" id="15_i740e"]
 [ext_resource type="SpriteFrames" uid="uid://dxbt7cgoq3dg5" path="res://scenes/game_elements/characters/enemies/throwing_enemy/components/ink_drinker_frames_blue.tres" id="21_jcr1e"]
 [ext_resource type="PackedScene" uid="uid://y8ha8abfyap2" path="res://scenes/game_elements/props/filling_barrel/filling_barrel.tscn" id="22_ub0fk"]
 [ext_resource type="PackedScene" uid="uid://dv4f232y8w8dv" path="res://scenes/game_elements/props/decoration/water_rock/water_rock.tscn" id="23_ah6ns"]
@@ -99,6 +95,10 @@ tile_set = ExtResource("6_ah6ns")
 tile_map_data = PackedByteArray("AAAQAAsAAQAIAAIAAAAQAAoAAQAIAAEAAAAQAAkAAQAHAAAAAAAPAAkAAQAGAAMAAAAOAAkAAQAGAAMAAAANAAkAAQAGAAMAAAAMAAkAAQAGAAMAAAALAAkAAQAGAAMAAAAKAAkAAQAGAAMAAAAJAAkAAQAGAAMAAAAIAAkAAQAGAAMAAAAHAAkAAQAGAAMAAAAGAAkAAQAFAAIAAAAGAAgAAQAIAAEAAAAGAAcAAQAIAAEAAAAGAAYAAQAIAAEAAAAGAAUAAQAFAAAAAAAHAAUAAQAGAAMAAAAIAAUAAQAHAAIAAAAIAAQAAQAIAAEAAAAIAAMAAQAIAAEAAAAIAAIAAQAIAAEAAAAIAAEAAQAIAAEAAAAIAAAAAQAIAAEAAAAIAP//AQAIAAEAAAA=")
 tile_set = ExtResource("6_ah6ns")
 
+[node name="Shadows" type="TileMapLayer" parent="TileMapLayers" unique_id=455492528]
+tile_map_data = PackedByteArray("AAADAAAAAAAAAAAAAAACAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAAAAAAAAAAAAD//wEAAAAAAAAAAAD//wIAAAAAAAAAAAD//wMAAAAAAAAAAAD//wQAAAAAAAAAAAD//wUAAAAAAAAAAAD//wYAAAAAAAAAAAAFAAAAAAAAAAAAAAAGAAEAAAAAAAAAAAAHAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAAKAAEAAAAAAAAAAAALAAAAAAAAAAAAAAANAAAAAAAAAAAAAAAOAAAAAAAAAAAAAAAPAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAARAAEAAAAAAAAAAAARAAIAAAAAAAAAAAARAAMAAAAAAAAAAAARAAQAAAAAAAAAAAARAAUAAAAAAAAAAAARAAYAAAAAAAAAAAASAAUAAAAAAAAAAAATAAUAAAAAAAAAAAATAAQAAAAAAAAAAAATAAMAAAAAAAAAAAATAAIAAAAAAAAAAAATAAEAAAAAAAAAAAATAAAAAAAAAAAAAAARAAkAAAAAAAAAAAARAAoAAAAAAAAAAAASAAoAAAAAAAAAAAAPAAsAAAAAAAAAAAAOAAsAAAAAAAAAAAANAAsAAAAAAAAAAAAMAAsAAAAAAAAAAAALAAsAAAAAAAAAAAAKAAsAAAAAAAAAAAAJAAsAAAAAAAAAAAAIAAsAAAAAAAAAAAAHAAsAAAAAAAAAAAAGAAsAAAAAAAAAAAAFAAsAAAAAAAAAAAAEAAsAAAAAAAAAAAADAAsAAAAAAAAAAAACAAsAAAAAAAAAAAAAAAoAAAAAAAAAAAD//woAAAAAAAAAAAD//wkAAAAAAAAAAAAIAAgAAAAAAAAAAAAJAAcAAAAAAAAAAAAKAAcAAAAAAAAAAAAHAAcAAAAAAAAAAAAOAAgAAAAAAAAAAAACAAgAAAAAAAAAAAACAAcAAAAAAAAAAAACAAMAAAAAAAAAAAAOAAQAAAAAAAAAAAAOAAMAAAAAAAAAAAA=")
+tile_set = ExtResource("8_gteq2")
+
 [node name="Stones" type="TileMapLayer" parent="TileMapLayers" unique_id=916637736]
 tile_map_data = PackedByteArray("AAAAAAAABAABAAMAAAABAAAABAABAAMAAAACAAAABAABAAMAAAADAAAABAACAAMAAAAOAP//BAACAAEAAAD//wAABAADAAEAAAD//wEABAADAAEAAAD//wIABAADAAEAAAD//wMABAADAAEAAAASAP//BAABAAAAAAARAP//BAABAAAAAAAQAP//BAABAAEAAAAPAP//BAAAAAEAAAASAAAABAACAAEAAAARAAAABAABAAEAAAAQAAAABAABAAMAAAACAAsABAAAAAMAAAADAAsABAABAAMAAAAEAAsABAABAAMAAAAFAAsABAABAAMAAAAGAAsABAABAAMAAAAKAAsABAABAAMAAAALAAsABAABAAMAAAAMAAsABAABAAMAAAANAAsABAABAAMAAAAOAAsABAABAAMAAAAPAAsABAACAAMAAAAPAAoABAACAAAAAAAOAAoABAABAAQAAAANAAoABAABAAAAAAAMAAoABAABAAQAAAALAAoABAABAAAAAAAKAAoABAABAAQAAAAJAAoABAABAAAAAAAHAAoABAABAAAAAAAGAAoABAABAAQAAAAFAAoABAABAAAAAAAEAAoABAABAAQAAAADAAoABAABAAAAAAACAAoABAAAAAQAAAAPAAAABAABAAMAAAD//wQABAADAAEAAAASAAEABAACAAEAAAARAAEABAAAAAEAAAARAAIABAAAAAEAAAASAAIABAACAAEAAAAOAAAABwABAAMAAAARAAMABAAAAAEAAAASAAMABAABAAAAAAARAAQABAAAAAEAAAASAAQABAADAAIAAAAFAAAABAAAAAMAAAARAAgABAADAAAAAAAGAAAABwABAAAAAAAHAAAABAACAAMAAAAJAAAABAAAAAMAAAAKAAAABwABAAAAAAALAAAABAACAAMAAAANAAAABAAAAAMAAAAIAAoABAABAAAAAAD/////BAAAAAAAAAAAAP//BAABAAAAAAABAP//BAABAAAAAAACAP//BAABAAQAAAADAP//BAACAAQAAAAFAP//BAAAAAQAAAAGAP//BAABAAQAAAAHAP//BAABAAIAAAAJAP//BAABAAQAAAAKAP//BAABAAIAAAALAP//BAACAAQAAAANAP//BAAAAAQAAAD//wUABwACAAIAAAD//wYABAADAAUAAAD//wgABAADAAAAAAD//wkABAAAAAIAAAAAAAkABAACAAAAAAD//woABAAAAAMAAAAAAAoABAACAAMAAAAHAAsABAABAAMAAAAIAAsABAABAAMAAAAJAAsABAABAAMAAAASAAoABAACAAMAAAARAAoABwAAAAUAAAARAAkABAAAAAIAAAASAAkABAACAAAAAAARAAYABAADAAMAAAARAAUABAADAAIAAAASAAUABwABAAMAAAAKAAEABAADAAMAAAAGAAEABAADAAMAAAAOAAIABAADAAAAAAAOAAMABAADAAIAAAAOAAQABwADAAUAAAAOAAgABAADAAMAAAACAAcABAADAAIAAAACAAgABwADAAUAAAACAAYABAADAAAAAAAJAAUABAADAAAAAAAJAAYABAACAAIAAAAIAAgABAADAAMAAAAJAAcABAABAAMAAAAKAAcABAACAAMAAAAKAAYABAACAAAAAAAHAAYABAAAAAQAAAAHAAcABAAAAAMAAAAIAAYABAABAAAAAAAIAAcABAABAAIAAAATAAQABAACAAIAAAATAAMABAABAAEAAAATAAIABAABAAEAAAATAAEABAABAAEAAAATAAAABAABAAEAAAATAP//BAACAAAAAAATAAUABAACAAMAAAACAAIABAADAAQAAAACAAMABAADAAUAAAAOAAcABAADAAQAAAA=")
 tile_set = ExtResource("7_ubp0p")
@@ -130,19 +130,18 @@ shape = SubResource("RectangleShape2D_oj6a4")
 [node name="Player" parent="OnTheGround" unique_id=702272208 instance=ExtResource("10_qh3g1")]
 position = Vector2(1050, 627)
 player_name = "StoryWeaver"
-mode = 1
 sprite_frames = ExtResource("11_bfcsr")
 
 [node name="ThrowingEnemy" parent="OnTheGround" unique_id=1079505207 instance=ExtResource("12_30iwa")]
 position = Vector2(415, 145)
 scale = Vector2(-1, 1)
-projectile_scene = ExtResource("14_jgk56")
+distance = 30.0
 throwing_period = 4.0
 autostart = true
 sprite_frames = ExtResource("13_7o6on")
 idle_sound_stream = ExtResource("14_plgxr")
 attack_sound_stream = ExtResource("15_i740e")
-distance = 30.0
+projectile_scene = ExtResource("14_jgk56")
 projectile_speed = 20.0
 projectile_follows_player = true
 walking_range = 0.0
@@ -150,14 +149,14 @@ walking_speed = 20.0
 
 [node name="ThrowingEnemy2" parent="OnTheGround" unique_id=2115941003 instance=ExtResource("12_30iwa")]
 position = Vector2(675, 145)
-projectile_scene = ExtResource("14_jgk56")
+distance = 30.0
 throwing_period = 4.0
 odd_shoot = true
 autostart = true
 sprite_frames = ExtResource("21_jcr1e")
 idle_sound_stream = ExtResource("14_plgxr")
 attack_sound_stream = ExtResource("15_i740e")
-distance = 30.0
+projectile_scene = ExtResource("14_jgk56")
 projectile_speed = 20.0
 projectile_follows_player = true
 walking_range = 0.0

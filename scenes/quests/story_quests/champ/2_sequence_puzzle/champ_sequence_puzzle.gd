@@ -130,7 +130,7 @@ func _on_champ_long_rock_water_entered() -> void:
 			if sequences[0].sequence.has(objs[i]) or sequences[1].sequence.has(objs[i]):
 				objs[i].interact_area.disabled = false
 		solve_progress = 0 # redundant?
-	player.mode = Player.Mode.COZY
+	player.mode = Player.Mode.USER_CONTROLLED
 
 ## Overrides the parent function so we can continue to do logic after sequence ends
 func _on_demonstrate_sequence(step: SequencePuzzleStep) -> void:
@@ -142,6 +142,7 @@ func _on_hint_sign_hint_sequence_finished() -> void:
 	await get_tree().create_timer(RESPAWN_DELAY).timeout
 	camera.global_position = player.global_position
 	player._toggle_player_behavior(player.player_interaction, true)
+	reset_all()
 
 ## Function to rest all sequence objets after displaying via hint sequence
 func reset_all() -> void:

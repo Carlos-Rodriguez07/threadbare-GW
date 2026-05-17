@@ -67,6 +67,9 @@ func _restore_from_hash() -> void:
 				GameState.clear()
 				GameState.guess_quest(path)
 				GameState.set_challenge_start_scene(path)
+				for ability: Enums.PlayerAbilities in GameState.DEBUG_PLAYER_ABILITIES:
+					GameState.set_ability(ability, true)
+				# TODO: this duplicates code in GameState._ready, find a way to consolidate.
 
 			# In theory, we might like to avoid switching scene if the specified
 			# scene is the default scene. In practice, that will not happen, and
@@ -104,6 +107,8 @@ func change_to_file_with_transition(
 	enter_transition: Transition.Effect = Transition.Effect.RIGHT_TO_LEFT_WIPE,
 	exit_transition: Transition.Effect = Transition.Effect.LEFT_TO_RIGHT_WIPE
 ) -> void:
+	assert(scene_path != "")
+
 	var err := ResourceLoader.load_threaded_request(scene_path)
 	if err != OK:
 		push_error("Failed to start loading %s: %s" % [scene_path, error_string(err)])
@@ -122,6 +127,8 @@ func change_to_packed_with_transition(
 	enter_transition: Transition.Effect = Transition.Effect.RIGHT_TO_LEFT_WIPE,
 	exit_transition: Transition.Effect = Transition.Effect.LEFT_TO_RIGHT_WIPE
 ) -> void:
+	assert(scene != null)
+
 	Transitions.do_transition(
 		change_to_packed.bind(scene, spawn_point), enter_transition, exit_transition
 	)
@@ -135,12 +142,18 @@ func reload_with_transition(
 
 
 func change_to_file(scene_path: String, spawn_point: NodePath = ^"") -> void:
+	assert(scene_path != "")
+
 	var scene: PackedScene = load(scene_path)
 	if scene:
 		change_to_packed(scene, spawn_point)
 
 
 func change_to_packed(scene: PackedScene, spawn_point: NodePath = ^"") -> void:
+	assert(scene != null)
+
+	GameState.clear_per_scene_state()
+
 	if get_tree().change_scene_to_packed(scene) == OK:
 		_set_hash(scene.resource_path)
 		GameState.set_scene(scene.resource_path, spawn_point)

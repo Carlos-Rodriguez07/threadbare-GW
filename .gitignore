@@ -30,3 +30,11 @@ __MACOSX
 
 # LibreOffice lock files, created while editing credits CSV files
 .~lock.*#
+
+# Godot Backstitch addon, bundled editor build, and config/state files, from
+# https://github.com/inkandswitch/backstitch-launcher/blob/main/.gitignore.template
+/addons/backstitch/
+/godot_editor/
+.backstitch_version
+/.backstitch/
+backstitch.cfg

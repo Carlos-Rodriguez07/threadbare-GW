@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://2rbpl811wlv1" path="res://scenes/game_elements/props/background_music/background_music.tscn" id="1_iot5q"]
 [ext_resource type="Script" uid="uid://crgkqdcmp27ee" path="res://scenes/quests/lore_quests/quest_002/3_void_grappling/components/void_grapping_round_2.gd" id="1_johb0"]
-[ext_resource type="AudioStream" uid="uid://dgwihwibc8ah6" path="res://assets/first_party/music/Threadbare_Combat.ogg" id="2_r7lb1"]
+[ext_resource type="AudioStream" uid="uid://bwgtbylflkup2" path="res://scenes/quests/lore_quests/quest_002/components/void_music.tres" id="3_jr6vd"]
 [ext_resource type="TileSet" uid="uid://bjx3gvah0ycl1" path="res://tiles/foam_2.tres" id="4_gvlvr"]
 [ext_resource type="TileSet" uid="uid://oynx002hv8tl" path="res://tiles/water.tres" id="5_jr6vd"]
 [ext_resource type="TileSet" uid="uid://b8qnr0owsbhhn" path="res://tiles/exterior_floors.tres" id="7_lg1kl"]
@@ -15,8 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://dohb701lxbe5s" path="res://scenes/game_elements/props/hookable_needle/hookable_needle.tscn" id="13_6fnam"]
 [ext_resource type="Script" uid="uid://dagrhfrj0f33i" path="res://scenes/game_logic/camera_behaviors/frame_camera_behavior.gd" id="13_xwjev"]
 [ext_resource type="PackedScene" uid="uid://evb46lm6ssu2" path="res://scenes/game_elements/props/hookable_pin/hookable_pin.tscn" id="14_4tdqi"]
-[ext_resource type="PackedScene" uid="uid://dvj15pnuqr2ua" path="res://scenes/game_elements/props/hookable_button_item/hookable_button_item.tscn" id="14_lmmn3"]
-[ext_resource type="Texture2D" uid="uid://dnwfhdpvdl0gi" path="res://scenes/game_elements/props/button_item/components/button-blue.png" id="15_johb0"]
+[ext_resource type="PackedScene" uid="uid://dmevaymmt6wco" path="res://scenes/game_elements/props/powerup/powerup.tscn" id="16_bkul7"]
+[ext_resource type="SpriteFrames" uid="uid://cfgahyntmtfgu" path="res://scenes/game_elements/props/powerup/components/powerup_thread.tres" id="17_jr6vd"]
 [ext_resource type="PackedScene" uid="uid://dv4f232y8w8dv" path="res://scenes/game_elements/props/decoration/water_rock/water_rock.tscn" id="20_q1v2m"]
 [ext_resource type="PackedScene" uid="uid://7873qa54birk" path="res://scenes/game_elements/props/tree/tree.tscn" id="21_gvlvr"]
 [ext_resource type="SpriteFrames" uid="uid://2ek86nvw6y28" path="res://scenes/game_elements/props/tree/components/tree_spriteframes_yellow.tres" id="22_siwq5"]
@@ -26,7 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://crqjcicx0vdu" path="res://scenes/game_elements/props/decoration/bush/bush.tscn" id="24_wrwcr"]
 [ext_resource type="PackedScene" uid="uid://cfcgrfvtn04yp" path="res://scenes/ui_elements/hud/hud.tscn" id="25_0h87u"]
 [ext_resource type="SpriteFrames" uid="uid://b6doys1c3yelx" path="res://scenes/game_elements/props/decoration/bush/components/bush_spriteframes_red_small.tres" id="25_bkul7"]
-[ext_resource type="Script" uid="uid://hqdquinbimce" path="res://scenes/game_elements/props/teleporter/teleporter/components/teleporter.gd" id="26_ipgsq"]
+[ext_resource type="Script" uid="uid://hqdquinbimce" path="res://scenes/game_elements/props/teleporter/teleporter.gd" id="26_ipgsq"]
 [ext_resource type="SpriteFrames" uid="uid://bgckvdkxuxrgh" path="res://scenes/game_elements/props/decoration/bush/components/bush_spriteframes_red_large.tres" id="26_jr6vd"]
 [ext_resource type="SpriteFrames" uid="uid://ckf0ncgsrnhek" path="res://scenes/game_elements/props/decoration/bush/components/bush_spriteframes_purple_large.tres" id="27_jr6vd"]
 [ext_resource type="SpriteFrames" uid="uid://k4jucjwkxxhc" path="res://scenes/game_elements/props/decoration/bush/components/bush_spriteframes_purple_small.tres" id="28_hxopk"]
@@ -74,42 +74,6 @@ _data = {
 }
 point_count = 5
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rup4f"]
-atlas = ExtResource("15_johb0")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ptg16"]
-atlas = ExtResource("15_johb0")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vodlh"]
-atlas = ExtResource("15_johb0")
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rlnni"]
-atlas = ExtResource("15_johb0")
-region = Rect2(192, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_vbdam"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rup4f")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ptg16")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vodlh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rlnni")
-}],
-"loop": true,
-"name": &"default",
-"speed": 10.0
-}]
-
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_c2723"]
 vertices = PackedVector2Array(2921.961, 2408.0469, 2928.9375, 3614.9766, -1572.9609, 3609.0078, -1559.0313, 112, 3734.039, 116.99219, 3742.961, 2105.039)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(0, 3, 4, 5)])
@@ -123,7 +87,8 @@ script = ExtResource("1_johb0")
 metadata/_edit_lock_ = true
 
 [node name="BackgroundMusic" parent="." unique_id=1032577005 instance=ExtResource("1_iot5q")]
-stream = ExtResource("2_r7lb1")
+stream = ExtResource("3_jr6vd")
+clip = &"Bloom 2"
 
 [node name="TileMapLayers" type="Node2D" parent="." unique_id=1333441298]
 metadata/_edit_lock_ = true
@@ -183,7 +148,6 @@ unique_name_in_owner = true
 position = Vector2(68, 428)
 scale = Vector2(1.03448, 1)
 player_name = "Storyweaver"
-mode = 2
 sprite_frames = ExtResource("12_80kqf")
 
 [node name="Camera2D" type="Camera2D" parent="OnTheGround/Player" unique_id=430310865]
@@ -246,15 +210,13 @@ scale = Vector2(2.219653, 2.219653)
 curve = SubResource("Curve2D_nm3ku")
 metadata/_edit_group_ = true
 
-[node name="LongerStringPowerUp" parent="OnTheGround" unique_id=1151446514 instance=ExtResource("14_lmmn3")]
+[node name="LongerThreadPowerup" parent="OnTheGround" unique_id=297202740 instance=ExtResource("16_bkul7")]
 position = Vector2(2048, 576)
-scale = Vector2(2, 2)
-
-[node name="ButtonSprite" parent="OnTheGround/LongerStringPowerUp/ButtonItem" parent_id_path=PackedInt32Array(1151446514, 1967107361) index="0" unique_id=1194360136]
-sprite_frames = SubResource("SpriteFrames_vbdam")
-
-[node name="HookableArea" parent="OnTheGround/LongerStringPowerUp" index="2" unique_id=1267513436]
-weight = 0.3
+ability = 32
+ability_name = "Longer Thread"
+interact_action = "Collect Longer Thread"
+sprite_frames = ExtResource("17_jr6vd")
+highlight_color = Color(0.8910073, 0.7227245, 0, 1)
 
 [node name="PinsAndNeedles" type="Node2D" parent="OnTheGround" unique_id=478811176]
 y_sort_enabled = true
@@ -687,9 +649,7 @@ position = Vector2(0, 23)
 shape = SubResource("RectangleShape2D_rk3po")
 
 [connection signal="body_entered" from="EnemyDefeatTrigger" to="OnTheGround/VoidChasing" method="defeat" unbinds=1]
-[connection signal="collected" from="OnTheGround/LongerStringPowerUp/ButtonItem" to="." method="_on_button_item_collected"]
+[connection signal="collected" from="OnTheGround/LongerThreadPowerup" to="." method="_on_longer_thread_powerup_collected"]
 
 [editable path="OnTheGround/VoidPatrolling"]
 [editable path="OnTheGround/VoidChasing"]
-[editable path="OnTheGround/LongerStringPowerUp"]
-[editable path="OnTheGround/LongerStringPowerUp/ButtonItem"]

@@ -3,13 +3,14 @@
 @tool
 extends Parallax2D
 
-@export_tool_button("Random Clouds") var randomize_button: Callable = randomize
+@export_tool_button("Random Clouds") var randomize_button: Callable = randomize_effect
 
 @export var _seed: int:
 	set = _set_seed
 
 var texture: NoiseTexture2D
 var noise: FastNoiseLite
+var tween: Tween
 
 @onready var color_rect: ColorRect = %ColorRect
 
@@ -27,5 +28,24 @@ func _ready() -> void:
 	_set_seed(_seed)
 
 
-func randomize() -> void:
+func randomize_effect() -> void:
 	await _set_seed(randi())
+
+
+func fade_in(duration: float = 1) -> void:
+	if tween:
+		tween.kill()
+	color_rect.modulate = Color.BLACK
+	visible = true
+	tween = create_tween()
+	tween.tween_property(color_rect, "modulate", Color.WHITE, duration)
+	await tween.finished
+
+
+func fade_out(duration: float = 1) -> void:
+	if tween:
+		tween.kill()
+	tween = create_tween()
+	tween.tween_property(color_rect, "modulate", Color.BLACK, duration)
+	await tween.finished
+	visible = false
